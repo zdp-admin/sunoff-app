@@ -44,9 +44,12 @@ Drawer drawerCustom(BuildContext context) {
         child: ListView(physics: BouncingScrollPhysics(), children: [
           DrawerHeader(
             decoration: BoxDecoration(
-                color: appService<AppSettings>().appTheme!.primaryColorLight),
-            padding: EdgeInsets.all(0),
-            margin: EdgeInsets.all(0),
+                gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [Colors.blue[200]!, Colors.white])),
+            padding: EdgeInsets.zero,
+            margin: EdgeInsets.zero,
             child: Container(
                 alignment: Alignment.center,
                 margin: EdgeInsets.only(left: 15),
@@ -79,14 +82,14 @@ Drawer drawerCustom(BuildContext context) {
                     Icon(Icons.monetization_on, color: _mainColor), () {
                   appService<NavigationService>().navigateTo('pricing');
                 }),
-                listTileCustom('Agregar Instalación',
+                /*listTileCustom('Agregar Instalación',
                     Icon(Icons.handyman, color: _mainColor), () {
                   appService<NavigationService>().navigateTo('installer');
-                }),
+                }),*/
                 Divider(),
                 if (pref.logged) ...[
                   listTileCustom(
-                      'CERRAR SESIÓN', Icon(Icons.login, color: _mainColor),
+                      'Cerrar Sesión', Icon(Icons.login, color: _mainColor),
                       () {
                     showAlert(context, 'Sesion',
                         '¿Estas seguro de cerrar sesion?', logOut);

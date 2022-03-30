@@ -27,37 +27,25 @@ dependencies:
     sdk: flutter
 
   crypto: ^3.0.1
-  cupertino_icons: ^1.0.3
-  flutter_local_notifications: ^6.0.0
-  font_awesome_flutter: ^9.0.0
-  geolocator: ^7.0.3
   get_it: ^7.1.3
-  google_maps_flutter: ^2.0.6
   http: ^0.13.3
   intl: ^0.17.0
-  map_launcher: ^2.0.0
-  pattern_formatter: ^2.0.0
   provider: ^5.0.0
-  responsive_grid: ^2.0.0
   rxdart: ^0.27.1
   share: ^2.0.4
   shared_preferences: ^2.0.6
-  smart_select: ^4.3.2
-  url_launcher: ^6.0.6
-  webview_flutter: ^2.0.8
-  curved_navigation_bar: ^0.4.0-nullsafety.0
   carousel_slider: ^4.0.0
   google_nav_bar: ^5.0.5
   flutter_html: ^2.1.0
-  calendar_timeline: ^1.0.1-null-safety.0
+  calendar_timeline: ^1.0.4
   camera: ^0.8.1+4
-  flutter_speed_dial: ^4.1.0
   image_picker: ^0.8.1+3
   flutter_datetime_picker: ^1.5.1
-  syncfusion_flutter_pdf: ^19.2.48-beta
   path_provider: ^2.0.2
-  open_file: ^3.2.1
-  bottom_sheet_expandable_bar: ^0.1.2
+  cached_network_image: ^3.2.0
+  screenshot: ^1.2.3
+  share_files_and_screenshot_widgets: ^1.0.6
+  share_plus: 
 
 dev_dependencies:
   flutter_test:
@@ -76,7 +64,6 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/blanco-mate/
     - assets/images/
     - assets/
 

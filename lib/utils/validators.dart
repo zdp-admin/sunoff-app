@@ -119,11 +119,6 @@ class Validators {
     return reg.hasMatch(value);
   }
 
-  /*final validGlass = 
-  StreamTransformer<List<GlassModel>, <List<GlassModel>>.fromHandlers(handleData: (value, sink) {
-    final validByGlass = List<GlassModel>
-  }) */
-
   final validNumber =
       StreamTransformer<int, int>.fromHandlers(handleData: (value, sink) {
     Pattern pattern = r'^[0-9]+$';
@@ -143,7 +138,6 @@ class Validators {
 
   final validateDate = StreamTransformer<DateTime, DateTime>.fromHandlers(
       handleData: (value, sink) {
-    // ignore: unrelated_type_equality_checks
     if (value != '') {
       sink.add(value);
     } else {

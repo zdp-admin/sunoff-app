@@ -14,7 +14,6 @@ class LoginBloc with Validators {
   Stream<bool?> get termAndConditionsStream =>
       _termAndConditionsController.stream;
   Stream<bool> get loadingStream => _loadingController.stream;
-  //Stream<bool>   get formValidStream => Rx.combineLatest3(emailStream, passwordStream, termAndConditionsStream, (a, b, c) => true);
   Stream<bool> get formValidStream => Rx.combineLatest2(
       emailStream, passwordStream, (dynamic a, dynamic b) => true);
 

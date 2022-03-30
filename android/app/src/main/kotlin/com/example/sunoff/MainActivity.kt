@@ -1,4 +1,4 @@
-package com.example.sunoff
+package com.zonadeprivilegios.sunoff
 
 import io.flutter.embedding.android.FlutterActivity
 

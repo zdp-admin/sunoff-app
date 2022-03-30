@@ -28,10 +28,9 @@ class LoginService {
     body['email'] = email;
     body['password'] = password;
     body['token'] = token;
-    // body['uuid'] = this.pref.tokenDevice;
     body['uuid'] = '45a8477ac5594f611233f13a21614f8af981e5e6';
 
-    Uri url = new Uri.http('${this.apiUrl}', '/auth/login');
+    Uri url = new Uri.https('${this.apiUrl}', '/public/auth/login');
 
     final response = await http.post(url, body: body);
     if (response.statusCode == 200) {
@@ -44,6 +43,6 @@ class LoginService {
       return true;
     }
 
-    throw ('Error al iniciar sesíon');
+    throw ('Error al iniciar sesión');
   }
 }

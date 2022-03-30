@@ -12,35 +12,29 @@ import '../pages/login/login_page.dart';
 import '../pages/profile/profile_page.dart';
 
 Route<dynamic> generateRoute(RouteSettings settings) {
-  /*return MaterialPageRoute(
-      builder: (context) => CotizacionPage(), settings: settings);
-*/
   switch (settings.name) {
-    case 'login':
+    case 'login': //-------------------------------------------------------------
       return MaterialPageRoute(
           builder: (context) => LoginPage(), settings: settings);
-    case 'profile':
+    case 'profile': //-----------------------------------------------------------
       return MaterialPageRoute(
           builder: (context) => ProfilePage(), settings: settings);
-    case 'account-status':
+    case 'account-status': //----------------------------------------------------
       return MaterialPageRoute(
           builder: (context) => PricingDetailsPage(
                 cotization: CotizacionModel.fromJson({}),
               ),
           settings: settings);
-    case 'pricing':
+    case 'pricing': //-----------------------------------------------------------
       return MaterialPageRoute(
           builder: (context) => PricingPage(), settings: settings);
-    case 'peliculas':
+    case 'peliculas': //---------------------------------------------------------
       return MaterialPageRoute(
           builder: (context) => PeliPage(), settings: settings);
-    case 'new-pricing':
+    case 'new-pricing': //-------------------------------------------------------
       return MaterialPageRoute(
-          builder: (context) => NewPricingPage(),
-          //CotizacionPage(cotizacionModel: new CotizacionModel()),
-          //ComentaryPage(cotizacionModel: new CotizacionModel()),
-          settings: settings);
-    case 'films-category':
+          builder: (context) => NewPricingPage(), settings: settings);
+    case 'films-category': //----------------------------------------------------
       int categoryId = 0;
 
       if (settings.arguments is int) {
@@ -48,14 +42,14 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       }
 
       return MaterialPageRoute(
-          builder: (context) => DecorativePage(
+          builder: (context) => PeliDetailsPage(
                 categoryId: categoryId,
               ),
           settings: settings);
-    case 'installer':
+    case 'installer': //---------------------------------------------------------
       return MaterialPageRoute(
           builder: (context) => InstallerPage(), settings: settings);
-    case 'comentary-page':
+    case 'comentary-page': //----------------------------------------------------
       CotizacionModel cotizacion = CotizacionModel();
 
       if (settings.arguments is CotizacionModel) {
@@ -66,15 +60,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
                 cotizacionModel: cotizacion,
               ),
           settings: settings);
-    /*case 'resume-page':
-      ClientModel clientModel = ClientModel.fromJson({});
-
-      if (settings.arguments is ClientModel) {
-        clientModel = settings.arguments as ClientModel;
-      }
-      return MaterialPageRoute(
-          builder: (context) => PricingDetailsPage(), settings: settings);*/
-    case 'new-pricing-details':
+    case 'new-pricing-details': //-----------------------------------------------
       late CotizacionModel cotizacionModel;
 
       if (settings.arguments is CotizacionModel) {
@@ -85,7 +71,7 @@ Route<dynamic> generateRoute(RouteSettings settings) {
           builder: (context) =>
               new CotizacionPage(cotizacionModel: cotizacionModel),
           settings: settings);
-    default:
+    default: //------------------------------------------------------------------
       return MaterialPageRoute(
           builder: (context) => Container(), settings: settings);
   }

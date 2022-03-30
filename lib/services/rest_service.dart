@@ -7,6 +7,7 @@ import 'package:sunoff/models/cotizacion/film_category.dart';
 import 'package:sunoff/models/cotizacion/image_film.dart';
 import 'package:sunoff/models/cotizacion/pelis.dart';
 import 'package:sunoff/models/cotizacion/type_building.dart';
+import 'package:sunoff/models/user.dart';
 import 'package:sunoff/services/setup_service.dart';
 import 'package:sunoff/utils/app_settings.dart';
 import 'package:sunoff/utils/preference_user.dart';
@@ -30,10 +31,10 @@ class RestService {
     late Uri url;
 
     if (categoryId != null) {
-      url = new Uri.http(
-          this.apiUrl!, '/films', {'category': categoryId.toString()});
+      url = new Uri.https(
+          this.apiUrl!, '/public/films', {'category': categoryId.toString()});
     } else {
-      url = new Uri.http(this.apiUrl!, '/films');
+      url = new Uri.http(this.apiUrl!, '/public/films');
     }
 
     final response = await http.get(url, headers: this.header());
@@ -41,8 +42,9 @@ class RestService {
     if (response.statusCode == 200) {
       var responseParse = jsonDecode(response.body);
       Iterable iterable = responseParse ?? [];
-
-      return iterable.map((item) => Pelis.fromJson(item)).toList();
+      List<Pelis> iterableMap =
+          iterable.map((item) => Pelis.fromJson(item)).toList();
+      return iterableMap;
     }
 
     throw ('Error al consultar la información');
@@ -52,10 +54,10 @@ class RestService {
     late Uri url;
 
     if (filmId != null) {
-      url = new Uri.http(
-          this.apiUrl!, '/films/get-image/', {'film': filmId.toString()});
+      url = new Uri.https(this.apiUrl!, '/public/films/get-image/',
+          {'film': filmId.toString()});
     } else {
-      url = new Uri.http(this.apiUrl!, '/films');
+      url = new Uri.https(this.apiUrl!, '/public/films');
     }
 
     final response = await http.get(url, headers: this.header());
@@ -71,7 +73,7 @@ class RestService {
   }
 
   Future<List<FilmCategory>> getFilmCategory() async {
-    final url = new Uri.http(this.apiUrl!, '/filmCategory');
+    final url = new Uri.https(this.apiUrl!, '/public/filmCategory/');
 
     final response = await http.get(url, headers: this.header());
 
@@ -86,7 +88,7 @@ class RestService {
   }
 
   Future<CotizacionModel> pricing(CotizacionModel cotizacionModel) async {
-    final url = new Uri.http(this.apiUrl!, '/pricing');
+    final url = new Uri.https(this.apiUrl!, '/public/pricing');
 
     final request = http.MultipartRequest('POST', url);
     request.headers[HttpHeaders.authorizationHeader] = 'Bearer ${pref.token}';
@@ -122,8 +124,17 @@ class RestService {
     throw ('Error al guardar la cotización');
   }
 
-  Future<List<CotizacionModel>> getPricing() async {
-    final url = new Uri.http(this.apiUrl!, '/pricing');
+  Future<List<CotizacionModel>> getPricing(String? search, String? date) async {
+    late Uri url;
+    int idUser = this.pref.me().user.id;
+
+    if (idUser != 3) {
+      url = new Uri.https(this.apiUrl!, '/public/pricing',
+          {'user': idUser.toString(), 'search': search, 'date': date});
+    } else {
+      url = new Uri.http(
+          this.apiUrl!, '/public/pricing', {'search': search, 'date': date});
+    }
 
     final response = await http.get(url, headers: this.header());
 
@@ -137,8 +148,22 @@ class RestService {
     throw ('Error al consultar la información');
   }
 
+  Future<CotizacionModel> getPricingById(int id) async {
+    Uri url = new Uri.https(this.apiUrl!, '/public/pricing', {'id': id});
+
+    final response = await http.get(url, headers: this.header());
+
+    if (response.statusCode == 200) {
+      var responseObject = jsonDecode(response.body);
+
+      return responseObject;
+    }
+
+    throw ('Error al consultar la información');
+  }
+
   Future<List<TypeBuilding>> getBuildingType() async {
-    final url = new Uri.http(this.apiUrl!, '/buildingType');
+    final url = new Uri.https(this.apiUrl!, '/public/buildingType');
 
     final response = await http.get(url, headers: this.header());
 
@@ -147,6 +172,21 @@ class RestService {
       Iterable iterable = responseParse ?? [];
 
       return iterable.map((item) => TypeBuilding.fromJson(item)).toList();
+    }
+
+    throw ('Error al consultar la información');
+  }
+
+  Future<List<User>> getUsers() async {
+    final url = new Uri.https(this.apiUrl!, '/public/user');
+
+    final response = await http.get(url, headers: this.header());
+
+    if (response.statusCode == 200) {
+      var responseParse = jsonDecode(response.body);
+      Iterable iterable = responseParse ?? [];
+
+      return iterable.map((item) => User.fromJson(item)).toList();
     }
 
     throw ('Error al consultar la información');

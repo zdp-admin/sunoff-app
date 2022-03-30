@@ -43,8 +43,8 @@ Widget buttonSubmit(LoginBloc bloc, Function(LoginBloc, BuildContext) submit,
                 width: 1.0,
                 color: appService<AppSettings>().appTheme!.primaryColor),
             elevation: 4.0,
-            primary: Colors.blue[300], // color when button is available
-            onSurface: Colors.white), // color when button is disabled
+            primary: Colors.blue[300],
+            onSurface: Colors.white),
         onPressed: snapshot.hasData && !bloc.loading
             ? () => submit(bloc, context)
             : null,

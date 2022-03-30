@@ -58,6 +58,11 @@ class CotizacionBloc with Validators {
   File get imagen => _imagenController.valueOrNull ?? new File('');
   int get peli => _peliController.valueOrNull ?? 0;
 
+  CotizacionBloc() {
+    this.changeMeasuresCount(1);
+    this.changeMedidas([MedidaModel.fromJson({})]);
+  }
+
   SeccionModelo toModel() {
     SeccionModelo seccionModelo = new SeccionModelo();
     seccionModelo.nombre = this.name;

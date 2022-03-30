@@ -1,25 +1,20 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:sunoff/models/cotizacion/cotizacion_model.dart';
 import 'package:sunoff/models/cotizacion/medida_model.dart';
 import 'package:sunoff/models/cotizacion/seccion_modelo.dart';
 import 'package:sunoff/pages/cotizacion/bloc/cotizacion_bloc.dart';
-import 'package:sunoff/pages/cotizacion/widget/cotizacion_counter.dart';
-import 'package:sunoff/pages/cotizacion/widget/cotizacion_input_image.dart';
-import 'package:sunoff/pages/cotizacion/widget/cotizacion_input_por_seccion.dart';
-import 'package:sunoff/pages/cotizacion/widget/cotizacion_list_peliculas.dart';
-import 'package:sunoff/pages/cotizacion/widget/cotizacion_peliculas_select.dart';
-import 'package:sunoff/pages/cotizacion/widget/cotization_input_installer.dart';
-import 'package:sunoff/pages/cotizacion/widget/cotization_input_name.dart.dart';
-import 'package:sunoff/pages/cotizacion/widget/cotization_input_switch.dart';
+import 'package:sunoff/pages/cotizacion/widget/widgets_export.dart';
+
 import 'package:sunoff/services/navigation_service.dart';
 import 'package:sunoff/services/setup_service.dart';
 
 class CotizacionPage extends StatefulWidget {
   final CotizacionModel cotizacionModel;
   CotizacionPage({required this.cotizacionModel});
+  //--------------Agregar un listado de secciones para guardar temporalmente
+  //--------------Luego en submit final cargarlas---------------------------
 
   @override
   _CotizacionPageState createState() => _CotizacionPageState();
@@ -29,32 +24,19 @@ class _CotizacionPageState extends State<CotizacionPage>
     with TickerProviderStateMixin {
   late TabController _tabController;
   CotizacionBloc bloc = CotizacionBloc();
-  final _pickImage = ImagePicker();
   Key keybody = Key(DateTime.now().microsecond.toString());
 
   @override
   void initState() {
     super.initState();
 
-    this.bloc.changeSecciones([
-      SeccionModelo.fromJson({'nombre': 'seccion 1'})
-    ]);
+    this.bloc.changeSecciones([SeccionModelo.fromJson({})]);
 
     this._tabController = TabController(vsync: this, length: 1);
 
     this.bloc.changeMedidas([MedidaModel.fromJson({})]);
 
     this.bloc.changeMeasuresCount(1);
-  }
-
-  void getImagen(SeccionModelo section) async {
-    var pickedFile;
-    pickedFile = await _pickImage.getImage(
-        source: ImageSource.camera, preferredCameraDevice: CameraDevice.rear);
-
-    if (pickedFile != null) {
-      section.bloc.changeImagen(new File(pickedFile.path));
-    }
   }
 
   void addSection() {
@@ -64,6 +46,7 @@ class _CotizacionPageState extends State<CotizacionPage>
     this.bloc.changeSecciones(secciones);
 
     this._tabController = TabController(length: secciones.length, vsync: this);
+
     this
         ._tabController
         .animateTo(secciones.length - 1, duration: Duration(milliseconds: 5));
@@ -114,22 +97,7 @@ class _CotizacionPageState extends State<CotizacionPage>
         });
   }
 
-  void removeGlass() {
-    int measuresCount = this.bloc.measuresCount;
-
-    if (measuresCount > 1) {
-      measuresCount--;
-      this.bloc.changeMeasuresCount(measuresCount);
-
-      if (this.bloc.isSwitched) {
-        var medidas = this.bloc.medidas;
-        medidas.removeLast();
-
-        this.bloc.changeMedidas(medidas);
-      }
-    }
-  }
-
+  //--------------Posible desuso-------------------
   void changeSwitch() {
     if (this.bloc.isSwitched) {
       List<MedidaModel> newmedidas = [];
@@ -258,7 +226,7 @@ class _CotizacionPageState extends State<CotizacionPage>
                                     margin: EdgeInsets.only(bottom: 20),
                                     alignment: Alignment.center,
                                     child: Column(children: [
-                                      cinputImage(context, seccion, getImagen),
+                                      cinputImage(context, seccion),
                                       StreamBuilder(
                                         stream: seccion.bloc.imagenStream,
                                         builder: (BuildContext context,
@@ -316,8 +284,17 @@ class _CotizacionPageState extends State<CotizacionPage>
                                           );
                                         },
                                       ),
+                                      Container(
+                                        child: seccion.imagen!.path != ""
+                                            ? Image.file(
+                                                seccion.imagen!,
+                                                fit: BoxFit.cover,
+                                                alignment: Alignment.center,
+                                              )
+                                            : Container(),
+                                      ),
                                     ]),
-                                  )
+                                  ),
                                 ],
                               ),
                             ),
@@ -350,7 +327,12 @@ class _CotizacionPageState extends State<CotizacionPage>
                 if (!allComplete) {
                   ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
                       duration: Duration(seconds: 1),
-                      content: Text('Verifique los datos')));
+                      content: Text(currentSeccion.bloc.name == ''
+                          ? 'Ingresa nombre a la sección.'
+                          : currentSeccion.bloc.medidas.every((medida) =>
+                                  medida.alto <= 0 && medida.ancho <= 0)
+                              ? 'Revisa las medidas.'
+                              : 'Agrega una película.')));
 
                   return;
                 }
@@ -373,7 +355,12 @@ class _CotizacionPageState extends State<CotizacionPage>
                     ? addSection()
                     : ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
                         duration: Duration(seconds: 1),
-                        content: Text('Verifique los datos')));
+                        content: Text(currentSeccion.bloc.name == ''
+                            ? 'Ingresa nombre a la sección.'
+                            : currentSeccion.bloc.medidas.every((medida) =>
+                                    medida.alto <= 0 && medida.ancho <= 0)
+                                ? 'Revisa las medidas.'
+                                : 'Agrega una película.')));
               }
             },
             items: [

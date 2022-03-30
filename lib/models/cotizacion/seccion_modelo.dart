@@ -2,9 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:sunoff/blocs/seccion_bloc.dart';
+// import 'package:sunoff/blocs/seccion_bloc.dart';
 import 'package:sunoff/models/cotizacion/medida_model.dart';
 import 'package:sunoff/models/cotizacion/pelis.dart';
+import 'package:sunoff/pages/cotizacion/bloc/cotizacion_bloc.dart';
 
 class SeccionModelo {
   late String uuid;
@@ -20,7 +21,7 @@ class SeccionModelo {
   late int pricingId;
   late TextEditingController nombreController;
   late TextEditingController instaladorController;
-  late SeccionBloc bloc;
+  late CotizacionBloc bloc;
 
   SeccionModelo() {
     this.uuid =
@@ -37,7 +38,7 @@ class SeccionModelo {
     this.pricingId = 0;
     this.nombreController = TextEditingController();
     this.instaladorController = TextEditingController();
-    this.bloc = new SeccionBloc();
+    this.bloc = new CotizacionBloc();
   }
 
   factory SeccionModelo.fromJson(Map<String, dynamic> json) {
@@ -83,7 +84,7 @@ class SeccionModelo {
     this.bloc.changeMeasuresCount(measuresCount);
 
     if (this.bloc.isSwitched) {
-      var medidas = this.bloc.medidas;
+      List<MedidaModel> medidas = this.bloc.medidas;
       medidas.add(MedidaModel.fromJson({}));
 
       this.bloc.changeMedidas(medidas);
@@ -98,7 +99,7 @@ class SeccionModelo {
       this.bloc.changeMeasuresCount(measuresCount);
 
       if (this.bloc.isSwitched) {
-        var medidas = this.bloc.medidas;
+        List<MedidaModel> medidas = this.bloc.medidas;
         medidas.removeLast();
 
         this.bloc.changeMedidas(medidas);
@@ -111,7 +112,7 @@ class SeccionModelo {
     List<MedidaModel> medidas = [];
 
     if (value) {
-      for (var i = 0; i < this.bloc.measuresCount; i++) {
+      for (int i = 0; i < this.bloc.measuresCount; i++) {
         medidas.add(MedidaModel.fromJson({}));
       }
 
@@ -145,6 +146,7 @@ class SeccionModelo {
 
     if (pickedFile != null) {
       this.bloc.changeImagen(new File(pickedFile.path));
+      this.imagen = this.bloc.imagen;
     }
   }
 }

@@ -27,7 +27,7 @@ class NewPricingState extends State<NewPricingPage> {
   List<TypeBuilding> buildingType = [];
   List<Pelis> pelis = [];
 
-  void submit() {
+  void _submit() {
     var cliente = bloc.toModelClient();
 
     CotizacionModel cotizacionModel = new CotizacionModel();
@@ -40,73 +40,67 @@ class NewPricingState extends State<NewPricingPage> {
         .navigateTo('new-pricing-details', arguments: cotizacionModel);
   }
 
-  void getBuildingType(List<TypeBuilding> buildtypes) {
-    setState(() {
-      this.buildingType = buildtypes;
+  void getBuildingType() {
+    RestService().getBuildingType().then((value) {
+      this.buildingType = value;
+      setState(() {});
     });
   }
 
-  void getPelis(List<Pelis> pelis) {
-    setState(() {
-      this.pelis = pelis;
+  void getPelis() {
+    RestService().getPelis().then((value) {
+      this.pelis = value;
+      setState(() {});
     });
-  }
-
-  void getData() {
-    Future.wait([
-      appService<RestService>().getBuildingType(),
-      appService<RestService>().getPelis()
-    ]).then((value) => {
-          this.getBuildingType(value[0] as List<TypeBuilding>),
-          this.getPelis(value[1] as List<Pelis>)
-        });
   }
 
   @override
   void initState() {
     super.initState();
 
-    this.getData();
+    this.getPelis();
+    this.getBuildingType();
   }
 
   Widget build(BuildContext context) {
     return Scaffold(
-        key: this._scaffoldKey,
-        backgroundColor: appService<AppSettings>().appTheme!.backgroundColor,
-        appBar: appBarCustom(context),
-        drawer: drawerCustom(context),
-        body: SingleChildScrollView(
-          child: Container(
-            height: MediaQuery.of(context).size.height * .80,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Container(
-                    alignment: Alignment.center,
-                    height: MediaQuery.of(context).size.height * .2,
-                    width: MediaQuery.of(context).size.width,
-                    child: Text('Nueva Cotización:',
-                        style: TextStyle(
-                          fontSize: 36,
-                        ))),
-                Expanded(
-                    child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Registra los siguientes datos:',
-                      style: TextStyle(fontSize: 22),
-                    ),
-                    SizedBox(height: 35),
-                    inputNameP(bloc),
-                    inputAddress(bloc),
-                    inputTypeBuilding(bloc, buildingType),
-                    buttonSubmitInput(bloc, submit)
-                  ],
-                )),
-              ],
-            ),
+      key: this._scaffoldKey,
+      backgroundColor: appService<AppSettings>().appTheme!.backgroundColor,
+      appBar: appBarCustom(context),
+      drawer: drawerCustom(context),
+      body: SingleChildScrollView(
+        child: Container(
+          height: MediaQuery.of(context).size.height * .80,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                  alignment: Alignment.center,
+                  height: MediaQuery.of(context).size.height * .2,
+                  width: MediaQuery.of(context).size.width,
+                  child: Text('Nueva Cotización:',
+                      style: TextStyle(
+                        fontSize: 36,
+                      ))),
+              Expanded(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(
+                    'Registra los siguientes datos:',
+                    style: TextStyle(fontSize: 22),
+                  ),
+                  SizedBox(height: 35),
+                  inputNameP(bloc),
+                  inputAddress(bloc),
+                  inputTypeBuilding(bloc, buildingType),
+                  buttonSubmitInput(bloc, _submit)
+                ],
+              )),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }

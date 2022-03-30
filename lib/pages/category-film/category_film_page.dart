@@ -1,5 +1,6 @@
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:sunoff/colors/light_colors.dart';
 import 'package:sunoff/models/cotizacion/image_film.dart';
 import 'package:sunoff/models/cotizacion/pelis.dart';
 import 'package:sunoff/services/rest_service.dart';
@@ -10,18 +11,18 @@ import '../../utils/app_settings.dart';
 import '../../utils/preference_user.dart';
 import '../../widgets/drawer_custom.dart';
 
-class DecorativePage extends StatefulWidget {
+class PeliDetailsPage extends StatefulWidget {
   final int categoryId;
-  DecorativePage({required this.categoryId});
+  PeliDetailsPage({required this.categoryId});
 
   @override
-  RewardsPageState createState() => new RewardsPageState();
+  PeliDetailsPageState createState() => new PeliDetailsPageState();
 }
 
-class RewardsPageState extends State<DecorativePage>
+class PeliDetailsPageState extends State<PeliDetailsPage>
     with SingleTickerProviderStateMixin {
   PreferencesUser pref = new PreferencesUser();
-  List<Pelis> _pelis = [];
+  late List<Pelis> _pelis = [];
   int _selectedIndex = 0;
   List<ImageFilm> images = [];
 
@@ -30,37 +31,19 @@ class RewardsPageState extends State<DecorativePage>
   @override
   void initState() {
     super.initState();
-    this.getPelis();
-  }
-
-  void getPelis() {
-    appService<RestService>()
-        .getPelis(categoryId: widget.categoryId)
-        .then((value) {
-      setState(() {
-        this._pelis = value;
-      });
-    }).catchError((onError) {
-      ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
-        duration: Duration(seconds: 3),
-        content: Text(
-            onError is String ? onError : 'Error al consultar la información'),
-      ));
-    });
+    this.getImagesFilm();
   }
 
   void getImagesFilm() {
-    appService<RestService>()
-        .getPelis(categoryId: widget.categoryId)
-        .then((value) {
+    RestService().getPelis(categoryId: widget.categoryId).then((value) {
       setState(() {
         this._pelis = value;
       });
     }).catchError((onError) {
       ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
         duration: Duration(seconds: 3),
-        content: Text(
-            onError is String ? onError : 'Error al consultar la información'),
+        content:
+            Text(onError is String ? onError : 'Error al consultar las Pelis'),
       ));
     });
   }
@@ -81,16 +64,14 @@ class RewardsPageState extends State<DecorativePage>
         body: SingleChildScrollView(
           child: this._pelis.length <= 0
               ? Container(
-                  margin: EdgeInsets.only(top: 40),
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                  margin: EdgeInsets.only(top: 2),
+                  child: LinearProgressIndicator(),
                 )
               : Container(
                   margin: EdgeInsets.only(top: 20),
                   child: Column(
                     children: [
-                      Container(child: carousel(this.activePeli.images)),
+                      carousel(this.activePeli.images, context),
                       SizedBox(height: 15),
                       SizedBox(height: 15),
                       Container(
@@ -99,7 +80,9 @@ class RewardsPageState extends State<DecorativePage>
                         child: Column(children: [
                           Text(this.activePeli.name,
                               style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 32)),
+                                  color: PColors.pDarkBlue,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 32)),
                           Divider(indent: 100, endIndent: 100),
                           SizedBox(height: 15),
                           Container(
@@ -121,34 +104,42 @@ class RewardsPageState extends State<DecorativePage>
                 ),
         ),
         bottomNavigationBar: Container(
+            height: 55.0,
             decoration: BoxDecoration(
-              color: Colors.transparent,
+              color: PColors.pLightBlue,
             ),
-            child: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                child: GNav(
-                  tabMargin: EdgeInsets.symmetric(vertical: 5, horizontal: 30),
-                  tabActiveBorder: Border.all(color: Colors.blue, width: 1),
-                  curve: Curves.easeInCirc,
-                  gap: 4,
-                  textStyle: TextStyle(fontSize: 16),
-                  activeColor: Colors.black,
-                  tabBackgroundColor: Colors.white,
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-                  tabs: this
-                      ._pelis
-                      .map((peli) => GButton(
-                          icon: Icons.window,
-                          textStyle: TextStyle(fontSize: 18),
-                          text: '${peli.name}'))
-                      .toList(),
-                  selectedIndex: _selectedIndex,
-                  onTabChange: (int index) {
-                    setState(() {
-                      this._selectedIndex = index;
-                    });
-                  },
-                ))));
+            child: Center(
+              child: SingleChildScrollView(
+                  physics: BouncingScrollPhysics(),
+                  scrollDirection: Axis.horizontal,
+                  child: GNav(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    tabMargin:
+                        EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                    curve: Curves.easeIn,
+                    gap: 3,
+                    textStyle: TextStyle(fontSize: 16),
+                    activeColor: PColors.pLightBlue,
+                    tabBackgroundColor: Colors.white,
+                    tabs: this
+                        ._pelis
+                        .map((peli) => GButton(
+                              icon: Icons.window,
+                              iconColor: Colors.white,
+                              activeBorder: Border(
+                                bottom: BorderSide.none,
+                              ),
+                              textStyle: TextStyle(fontSize: 16),
+                              text: '${peli.name}',
+                            ))
+                        .toList(),
+                    selectedIndex: _selectedIndex,
+                    onTabChange: (int index) {
+                      setState(() {
+                        this._selectedIndex = index;
+                      });
+                    },
+                  )),
+            )));
   }
 }

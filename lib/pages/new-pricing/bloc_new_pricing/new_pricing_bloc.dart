@@ -7,7 +7,6 @@ class NewPricingBloc with Validators {
   BehaviorSubject<String> _addressController = BehaviorSubject<String>();
   BehaviorSubject<int> _typeBuildingController = BehaviorSubject<int>();
   final _loadingController = BehaviorSubject<bool>();
-  //final _listController = BehaviorSubject<List<String>>();
 
   Stream<String> get nameStream =>
       _nameController.stream.transform(validateEmpty);
@@ -15,16 +14,11 @@ class NewPricingBloc with Validators {
       _addressController.stream.transform(validateEmpty);
   Stream<int> get typeBuildingStream => _typeBuildingController.stream;
   Stream<bool> get loadingStream => _loadingController.stream;
-  Stream<bool> get formValidStream => Rx.combineLatest2(
+  Stream<bool> get formValidStream => Rx.combineLatest3(
       nameStream,
       addressStream,
-      //typeBuildingStream,
-      (
-        dynamic a,
-        dynamic b,
-        /*dynamic c*/
-      ) =>
-          true);
+      typeBuildingStream,
+      (dynamic a, dynamic b, dynamic c) => true);
 
   Function(String) get changeName => _nameController.sink.add;
   Function(String) get changeAddress => _addressController.sink.add;

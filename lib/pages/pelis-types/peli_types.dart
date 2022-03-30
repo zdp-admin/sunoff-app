@@ -39,49 +39,51 @@ class MenuState extends State<PeliPage> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    bool haveFilms = this.filmCategory.length <= 0;
     return Scaffold(
         appBar: appBarCustom(context),
         drawer: drawerCustom(context),
         backgroundColor: Colors.white,
-        body: this.filmCategory.length <= 0
+        body: haveFilms
             ? Container(
-                margin: EdgeInsets.only(top: 40),
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
+                margin: EdgeInsets.only(top: 2),
+                child: LinearProgressIndicator(),
               )
-            : Container(
-                height: MediaQuery.of(context).size.height * .8,
-                width: MediaQuery.of(context).size.width > 700
-                    ? 700
-                    : MediaQuery.of(context).size.width,
-                child: Column(
-                  children: [
-                    Container(
-                        alignment: Alignment.center,
-                        height: MediaQuery.of(context).size.height * .2,
-                        width: MediaQuery.of(context).size.width,
-                        child: Text('Películas:',
-                            style: TextStyle(
-                              fontSize: 36,
-                            ))),
-                    Container(
-                      child: Wrap(
-                          verticalDirection: VerticalDirection.down,
-                          runSpacing: 25,
-                          children: this
-                              .filmCategory
-                              .map((category) => GestureDetector(
-                                  onTap: () {
-                                    appService<NavigationService>().navigateTo(
-                                        'films-category',
-                                        arguments: category.id);
-                                  },
-                                  child: cardItems(
-                                      context, category.code, category.name)))
-                              .toList()),
-                    )
-                  ],
+            : Center(
+                child: Container(
+                  height: size.height * .8,
+                  width: size.width > 700
+                      ? 700
+                      : MediaQuery.of(context).size.width,
+                  child: Column(
+                    children: [
+                      Container(
+                          alignment: Alignment.center,
+                          height: MediaQuery.of(context).size.height * .2,
+                          width: MediaQuery.of(context).size.width,
+                          child: Text('Películas:',
+                              style: TextStyle(
+                                fontSize: 36,
+                              ))),
+                      Container(
+                        child: Wrap(
+                            verticalDirection: VerticalDirection.down,
+                            runSpacing: 25,
+                            children: this
+                                .filmCategory
+                                .map((category) => GestureDetector(
+                                    onTap: () {
+                                      appService<NavigationService>()
+                                          .navigateTo('films-category',
+                                              arguments: category.id);
+                                    },
+                                    child: cardItems(
+                                        context, category.code, category.name)))
+                                .toList()),
+                      )
+                    ],
+                  ),
                 ),
               ));
   }

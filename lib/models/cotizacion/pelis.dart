@@ -25,8 +25,12 @@ class Pelis {
     peli.id = int.parse((json['id'] ?? 0).toString());
     peli.name = json['name'] ?? '';
     peli.price = double.parse((json['price'] ?? 0).toString());
-    peli.priceForSection =
-        double.parse((json['pivot']['price'] ?? 0).toString());
+
+    if (json['pivot'] != null) {
+      peli.priceForSection =
+          double.parse((json['pivot']['price'] ?? 0).toString());
+    }
+
     peli.description = json['description'] ?? '';
     peli.filmCategoryId = int.parse((json['film_category_id'] ?? 0).toString());
     peli.images = ((json['images'] ?? []) as Iterable)

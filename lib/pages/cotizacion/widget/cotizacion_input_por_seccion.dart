@@ -34,14 +34,14 @@ Widget cinputPorSeccion(SeccionModelo seccion) {
                           flex: 2,
                           child: TextField(
                             onChanged: (value) {
-                              var list = seccion.bloc.medidas;
-                              list[medida.key].alto = double.parse(value);
+                              List<MedidaModel> list = seccion.bloc.medidas;
+                              list[medida.key].ancho = double.parse(value);
                               seccion.bloc.changeMedidas(list);
                             },
                             keyboardType: TextInputType.number,
-                            controller: medida.value.altoController,
+                            controller: medida.value.anchoController,
                             decoration: InputDecoration(
-                                labelText: 'Alto',
+                                labelText: 'Ancho en mts',
                                 border: OutlineInputBorder(),
                                 isDense: true,
                                 contentPadding: EdgeInsets.symmetric(
@@ -52,14 +52,14 @@ Widget cinputPorSeccion(SeccionModelo seccion) {
                           flex: 2,
                           child: TextField(
                             onChanged: (value) {
-                              var list = seccion.bloc.medidas;
-                              list[medida.key].ancho = double.parse(value);
+                              List<MedidaModel> list = seccion.bloc.medidas;
+                              list[medida.key].alto = double.parse(value);
                               seccion.bloc.changeMedidas(list);
                             },
                             keyboardType: TextInputType.number,
-                            controller: medida.value.anchoController,
+                            controller: medida.value.altoController,
                             decoration: InputDecoration(
-                                labelText: 'Ancho',
+                                labelText: 'Alto en mts',
                                 border: OutlineInputBorder(),
                                 isDense: true,
                                 contentPadding: EdgeInsets.symmetric(

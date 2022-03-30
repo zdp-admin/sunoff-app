@@ -12,6 +12,7 @@ class CotizacionModel {
   late int buildingTypeId;
   late int clientId;
   late TypeBuilding typeBuilding;
+  late int userId;
   List<Pelis> films = [];
 
   CotizacionModel() {
@@ -23,6 +24,7 @@ class CotizacionModel {
     this.buildingTypeId = 0;
     this.clientId = 0;
     this.typeBuilding = TypeBuilding.fromJson({});
+    this.userId = 0;
   }
 
   factory CotizacionModel.fromJson(Map<String, dynamic> json) {
@@ -39,6 +41,7 @@ class CotizacionModel {
     cotizacionModel.typeBuilding =
         TypeBuilding.fromJson(json['building_type'] ?? {});
     cotizacionModel.clientId = int.parse((json['clientId'] ?? 0).toString());
+    cotizacionModel.userId = int.parse((json['user_id'] ?? 0).toString());
 
     return cotizacionModel;
   }
@@ -49,7 +52,7 @@ class CotizacionModel {
       "comentary": this.comentario,
       "client": this.cliente.toJson(),
       "sections": this.secciones.map((section) => section.toJson()).toList(),
-      "client_id": this.clientId.toString()
+      "client_id": this.clientId.toString(),
     };
   }
 }

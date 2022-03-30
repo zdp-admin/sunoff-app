@@ -26,58 +26,63 @@ class MenuState extends State<ProfilePage> {
         drawer: drawerCustom(context),
         backgroundColor: Colors.white,
         body: SafeArea(
-          child: Container(
-            height: MediaQuery.of(context).size.height * .8,
-            width: MediaQuery.of(context).size.width > 700
-                ? 700
-                : MediaQuery.of(context).size.width,
-            child: Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 40),
-                  alignment: Alignment.center,
-                  height: MediaQuery.of(context).size.height * .15,
-                  width: MediaQuery.of(context).size.width,
-                  child: Text('¡Hola, ${pref.me().user.name}!',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 48)),
-                ),
-                Expanded(
-                    child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    GestureDetector(
+          child: Center(
+            child: Container(
+              height: MediaQuery.of(context).size.height * .8,
+              width: MediaQuery.of(context).size.width > 700
+                  ? 700
+                  : MediaQuery.of(context).size.width,
+              child: Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 40),
+                    alignment: Alignment.center,
+                    height: MediaQuery.of(context).size.height * .15,
+                    width: MediaQuery.of(context).size.width,
+                    child: Text('¡Hola, ${pref.me().user.name}!',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 48)),
+                  ),
+                  Expanded(
+                      child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      GestureDetector(
+                          onTap: () {
+                            appService<NavigationService>()
+                                .navigateTo('new-pricing');
+                          },
+                          child: cardItems(
+                              context, Icons.description, 'Nueva Cotización')),
+                      SizedBox(height: 20),
+                      GestureDetector(
                         onTap: () {
                           appService<NavigationService>()
-                              .navigateTo('new-pricing');
+                              .navigateTo('peliculas');
+                        },
+                        child: cardItems(context, Icons.window, 'Películas'),
+                      ),
+                      SizedBox(height: 20),
+                      GestureDetector(
+                        onTap: () {
+                          appService<NavigationService>().navigateTo('pricing');
                         },
                         child: cardItems(
-                            context, Icons.description, 'Nueva Cotización')),
-                    SizedBox(height: 20),
-                    GestureDetector(
-                      onTap: () {
-                        appService<NavigationService>().navigateTo('peliculas');
-                      },
-                      child: cardItems(context, Icons.window, 'Películas'),
-                    ),
-                    SizedBox(height: 20),
-                    GestureDetector(
-                      onTap: () {
-                        appService<NavigationService>().navigateTo('pricing');
-                      },
-                      child: cardItems(
-                          context, Icons.monetization_on, 'Presupuestos'),
-                    ),
-                    SizedBox(height: 20),
-                    GestureDetector(
-                      onTap: () {
-                        appService<NavigationService>().navigateTo('installer');
-                      },
-                      child: cardItems(context, Icons.handyman, 'Instalación'),
-                    ),
-                  ],
-                ))
-              ],
+                            context, Icons.monetization_on, 'Presupuestos'),
+                      ),
+                      SizedBox(height: 20),
+                      /*GestureDetector(
+                        onTap: () {
+                          appService<NavigationService>()
+                              .navigateTo('installer');
+                        },
+                        child:
+                            cardItems(context, Icons.handyman, 'Instalación'),
+                      ),*/
+                    ],
+                  ))
+                ],
+              ),
             ),
           ),
         ));

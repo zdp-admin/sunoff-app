@@ -18,7 +18,6 @@ class InstallerState extends State<InstallerPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   List<String> assistant = ['Elmo', 'Auxiliar2', 'Auxiliar3'];
   List<String> typeConst = ['Residencial', 'Comercial', 'Opción 3'];
-  //List<Install> install = [];
   String? valueSelectionAux;
   String? valueSelectionConst;
   String _timeIn = '12:00';

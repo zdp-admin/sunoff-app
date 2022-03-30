@@ -10,8 +10,12 @@ Widget inputSwitch(SeccionModelo seccion) {
       return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            child: Text('Por Seccion'),
+          InkWell(
+            onTap: () => seccion.switchForSecction(false),
+            child: Text('Por Seccion',
+                style: !seccion.bloc.isSwitched
+                    ? TextStyle(fontWeight: FontWeight.bold)
+                    : TextStyle()),
           ),
           Container(
             child: Switch(
@@ -24,7 +28,13 @@ Widget inputSwitch(SeccionModelo seccion) {
             ),
           ),
           Container(
-            child: Text('Por vidrio'),
+            child: InkWell(
+              onTap: () => seccion.switchForSecction(true),
+              child: Text('Por vidrio',
+                  style: seccion.bloc.isSwitched
+                      ? TextStyle(fontWeight: FontWeight.bold)
+                      : TextStyle()),
+            ),
           )
         ],
       );

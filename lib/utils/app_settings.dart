@@ -12,7 +12,7 @@ class AppSettings {
   late Map<String, String>? headers;
 
   AppSettings() {
-    this.apiUrl = '192.168.0.22:90';
+    this.apiUrl = 'api.sunoff.com.mx';
     this.appTheme = ThemeData(
         primaryColor: PColors.pLightBlue,
         primaryColorDark: PColors.pDarkBlue,

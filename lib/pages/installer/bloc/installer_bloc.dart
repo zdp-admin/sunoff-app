@@ -26,7 +26,7 @@ class InstallerBloc with Validators {
   Stream<List<Pelis>> get filmsStream => _filmsController.stream;
   Stream<String> get commentaryStream => _commentaryController.stream;
   /*Stream<bool> get formValidStream => Rx.combineLatest3(
-      addressStream, typeBuildingStream, peliculasStream, (a, b, c) => true);*/
+      addressStream, typeBuildingStream, filmsStream, (a, b, c) => true);*/
 
   Function(String) get changeAddress => _addressController.sink.add;
   Function(int) get changeAssistant => _assistantController.sink.add;

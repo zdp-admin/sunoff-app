@@ -14,7 +14,6 @@ Widget inputPassword(LoginBloc bloc) {
         decoration: InputDecoration(
             isDense: true,
             prefixIcon: Icon(Icons.lock_outlined, color: Colors.blue[900]),
-            //icon: Icon(Icons.lock_outlined, color: Colors.blue[900]),
             contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
             filled: true,
             fillColor: appService<AppSettings>().appTheme!.accentColor,
