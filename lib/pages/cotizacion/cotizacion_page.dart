@@ -5,6 +5,7 @@ import 'package:sunoff/models/cotizacion/cotizacion_model.dart';
 import 'package:sunoff/models/cotizacion/medida_model.dart';
 import 'package:sunoff/models/cotizacion/seccion_modelo.dart';
 import 'package:sunoff/pages/cotizacion/bloc/cotizacion_bloc.dart';
+import 'package:sunoff/pages/cotizacion/widget/cotizacion_imput_image_gallery.dart';
 import 'package:sunoff/pages/cotizacion/widget/widgets_export.dart';
 
 import 'package:sunoff/services/navigation_service.dart';
@@ -102,7 +103,7 @@ class _CotizacionPageState extends State<CotizacionPage>
     if (this.bloc.isSwitched) {
       List<MedidaModel> newmedidas = [];
 
-      for (var i = 0; i < this.bloc.measuresCount; i++) {
+      for (int i = 0; i < this.bloc.measuresCount; i++) {
         newmedidas.add(MedidaModel.fromJson({}));
       }
 
@@ -226,12 +227,19 @@ class _CotizacionPageState extends State<CotizacionPage>
                                     margin: EdgeInsets.only(bottom: 20),
                                     alignment: Alignment.center,
                                     child: Column(children: [
-                                      cinputImage(context, seccion),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          cinputImage(context, seccion),
+                                          cinputImageGallery(context, seccion),
+                                        ],
+                                      ),
                                       StreamBuilder(
                                         stream: seccion.bloc.imagenStream,
                                         builder: (BuildContext context,
                                             AsyncSnapshot<File> snapshot) {
-                                          var validFile = snapshot.hasData &&
+                                          bool validFile = snapshot.hasData &&
                                               snapshot.data != null &&
                                               snapshot.data!.path != '';
 
@@ -239,16 +247,22 @@ class _CotizacionPageState extends State<CotizacionPage>
                                             child: !validFile
                                                 ? Center()
                                                 : Container(
+                                                    margin: EdgeInsets.only(
+                                                        top: 15),
                                                     color: Colors.red,
                                                     child: Stack(
                                                       children: [
-                                                        Container(
-                                                          height: 250,
-                                                          child: Image.file(
-                                                            snapshot.data!,
-                                                            fit: BoxFit.cover,
-                                                            alignment: Alignment
-                                                                .center,
+                                                        Material(
+                                                          elevation: 10,
+                                                          child: Container(
+                                                            height: 250,
+                                                            child: Image.file(
+                                                              snapshot.data!,
+                                                              fit: BoxFit.cover,
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
+                                                            ),
                                                           ),
                                                         ),
                                                         Positioned(
@@ -284,15 +298,6 @@ class _CotizacionPageState extends State<CotizacionPage>
                                           );
                                         },
                                       ),
-                                      Container(
-                                        child: seccion.imagen!.path != ""
-                                            ? Image.file(
-                                                seccion.imagen!,
-                                                fit: BoxFit.cover,
-                                                alignment: Alignment.center,
-                                              )
-                                            : Container(),
-                                      ),
                                     ]),
                                   ),
                                 ],
@@ -310,7 +315,7 @@ class _CotizacionPageState extends State<CotizacionPage>
             ),
             backgroundColor: Colors.transparent,
             onTap: (int index) {
-              var currentSeccion =
+              SeccionModelo currentSeccion =
                   this.bloc.secciones[this._tabController.index];
 
               if (index == 0) {

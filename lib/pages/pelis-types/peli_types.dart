@@ -1,3 +1,4 @@
+import 'package:sunoff/colors/light_colors.dart';
 import 'package:sunoff/models/cotizacion/film_category.dart';
 import 'package:sunoff/pages/pelis-types/widgets/card_items.dart';
 import 'package:sunoff/services/navigation_service.dart';
@@ -72,8 +73,12 @@ class MenuState extends State<PeliPage> {
                             runSpacing: 25,
                             children: this
                                 .filmCategory
-                                .map((category) => GestureDetector(
-                                    onTap: () {
+                                .map((category) => ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        primary: Colors.white,
+                                        side: BorderSide(
+                                            color: PColors.pLightBlue)),
+                                    onPressed: () {
                                       appService<NavigationService>()
                                           .navigateTo('films-category',
                                               arguments: category.id);

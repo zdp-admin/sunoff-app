@@ -21,10 +21,10 @@ class LoginService {
   }
 
   Future<bool> auth(String email, String password) async {
-    var bytesToken = utf8.encode('${password}u420qwd');
-    var token = sha1.convert(bytesToken).toString();
+    List<int> bytesToken = utf8.encode('${password}u420qwd');
+    String token = sha1.convert(bytesToken).toString();
 
-    var body = new Map<String, String>();
+    Map<String, String> body = new Map<String, String>();
     body['email'] = email;
     body['password'] = password;
     body['token'] = token;

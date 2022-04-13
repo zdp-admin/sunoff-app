@@ -52,7 +52,7 @@ class PreferencesUser {
   }
 
   JwtModelo me() {
-    var jwtObject = parseJwt(this.token);
+    Map<String, dynamic>? jwtObject = parseJwt(this.token);
     JwtModelo userToken = JwtModelo.fromJson(jwtObject!);
 
     return userToken;

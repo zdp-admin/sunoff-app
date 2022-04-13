@@ -6,6 +6,7 @@ import 'package:sunoff/models/cotizacion/medida_model.dart';
 import 'package:sunoff/models/cotizacion/seccion_modelo.dart';
 import 'package:sunoff/models/cotizacion/pelis.dart';
 import 'package:sunoff/utils/validators.dart';
+import 'package:uuid/uuid.dart';
 
 class CotizacionBloc with Validators {
   BehaviorSubject<List<SeccionModelo>> _seccionesController =
@@ -64,6 +65,7 @@ class CotizacionBloc with Validators {
   }
 
   SeccionModelo toModel() {
+    var uuid = Uuid();
     SeccionModelo seccionModelo = new SeccionModelo();
     seccionModelo.nombre = this.name;
     seccionModelo.porVidrio = this.isSwitched;
@@ -72,6 +74,7 @@ class CotizacionBloc with Validators {
     seccionModelo.peliculas = this.peliculas;
     seccionModelo.instalador = this.instalador;
     seccionModelo.imagen = this.imagen;
+    seccionModelo.uuid = uuid.v1();
 
     return seccionModelo;
   }

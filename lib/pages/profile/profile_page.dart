@@ -1,3 +1,4 @@
+import 'package:sunoff/colors/light_colors.dart';
 import 'package:sunoff/pages/profile/widgets/card_items.dart';
 import 'package:sunoff/services/navigation_service.dart';
 import 'package:sunoff/services/setup_service.dart';
@@ -47,24 +48,33 @@ class MenuState extends State<ProfilePage> {
                       child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      GestureDetector(
-                          onTap: () {
+                      ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              primary: Colors.white,
+                              side: BorderSide(color: PColors.pLightBlue)),
+                          onPressed: () {
                             appService<NavigationService>()
                                 .navigateTo('new-pricing');
                           },
                           child: cardItems(
                               context, Icons.description, 'Nueva Cotización')),
                       SizedBox(height: 20),
-                      GestureDetector(
-                        onTap: () {
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.white,
+                            side: BorderSide(color: PColors.pLightBlue)),
+                        onPressed: () {
                           appService<NavigationService>()
                               .navigateTo('peliculas');
                         },
                         child: cardItems(context, Icons.window, 'Películas'),
                       ),
                       SizedBox(height: 20),
-                      GestureDetector(
-                        onTap: () {
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.white,
+                            side: BorderSide(color: PColors.pLightBlue)),
+                        onPressed: () {
                           appService<NavigationService>().navigateTo('pricing');
                         },
                         child: cardItems(

@@ -23,9 +23,9 @@ bool validToken(String? token, bool isLogin) {
   }
 
   try {
-    var result = parseJwt(token);
+    Map<String, dynamic>? result = parseJwt(token);
     if (result is Map<String, dynamic>) {
-      var time = DateTime.now();
+      DateTime time = DateTime.now();
       if (result['exp'] < (time.millisecondsSinceEpoch / 1000)) {
         return false;
       }

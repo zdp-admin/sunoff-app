@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sunoff/models/cotizacion/cliente_modelo.dart';
 import 'package:sunoff/models/cotizacion/cotizacion_model.dart';
 import 'package:sunoff/models/cotizacion/pelis.dart';
 import 'package:sunoff/models/cotizacion/type_building.dart';
@@ -28,7 +29,7 @@ class NewPricingState extends State<NewPricingPage> {
   List<Pelis> pelis = [];
 
   void _submit() {
-    var cliente = bloc.toModelClient();
+    ClienteModelo cliente = bloc.toModelClient();
 
     CotizacionModel cotizacionModel = new CotizacionModel();
 

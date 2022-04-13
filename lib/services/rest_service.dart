@@ -22,7 +22,7 @@ class RestService {
   RestService() {
     this.apiUrl = appService<AppSettings>().apiUrl;
     this.pref = new PreferencesUser();
-    var bytesToken = utf8.encode('u420qwd');
+    List<int> bytesToken = utf8.encode('u420qwd');
     this.token = sha1.convert(bytesToken).toString();
     this.tokenDefault = sha1.convert(bytesToken).toString();
   }
@@ -40,7 +40,7 @@ class RestService {
     final response = await http.get(url, headers: this.header());
 
     if (response.statusCode == 200) {
-      var responseParse = jsonDecode(response.body);
+      dynamic responseParse = jsonDecode(response.body);
       Iterable iterable = responseParse ?? [];
       List<Pelis> iterableMap =
           iterable.map((item) => Pelis.fromJson(item)).toList();
@@ -63,7 +63,7 @@ class RestService {
     final response = await http.get(url, headers: this.header());
 
     if (response.statusCode == 200) {
-      var responseParse = jsonDecode(response.body);
+      dynamic responseParse = jsonDecode(response.body);
       Iterable iterable = responseParse ?? [];
 
       return iterable.map((item) => ImageFilm.fromJson(item)).toList();
@@ -78,7 +78,7 @@ class RestService {
     final response = await http.get(url, headers: this.header());
 
     if (response.statusCode == 200) {
-      var responseParse = jsonDecode(response.body);
+      dynamic responseParse = jsonDecode(response.body);
       Iterable iterable = responseParse ?? [];
 
       return iterable.map((item) => FilmCategory.fromJson(item)).toList();
@@ -139,7 +139,7 @@ class RestService {
     final response = await http.get(url, headers: this.header());
 
     if (response.statusCode == 200) {
-      var responseParse = jsonDecode(response.body);
+      dynamic responseParse = jsonDecode(response.body);
       Iterable iterable = responseParse ?? [];
 
       return iterable.map((item) => CotizacionModel.fromJson(item)).toList();
@@ -154,9 +154,9 @@ class RestService {
     final response = await http.get(url, headers: this.header());
 
     if (response.statusCode == 200) {
-      var responseObject = jsonDecode(response.body);
+      dynamic responseParse = jsonDecode(response.body);
 
-      return responseObject;
+      return responseParse;
     }
 
     throw ('Error al consultar la información');
@@ -168,7 +168,7 @@ class RestService {
     final response = await http.get(url, headers: this.header());
 
     if (response.statusCode == 200) {
-      var responseParse = jsonDecode(response.body);
+      dynamic responseParse = jsonDecode(response.body);
       Iterable iterable = responseParse ?? [];
 
       return iterable.map((item) => TypeBuilding.fromJson(item)).toList();
@@ -183,7 +183,7 @@ class RestService {
     final response = await http.get(url, headers: this.header());
 
     if (response.statusCode == 200) {
-      var responseParse = jsonDecode(response.body);
+      dynamic responseParse = jsonDecode(response.body);
       Iterable iterable = responseParse ?? [];
 
       return iterable.map((item) => User.fromJson(item)).toList();

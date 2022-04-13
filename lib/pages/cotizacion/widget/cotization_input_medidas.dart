@@ -26,7 +26,7 @@ Widget cinputBySection(
                       child: TextField(
                         controller: altoController,
                         onChanged: (String value) {
-                          var section = bloc.medidas;
+                          List<MedidaModel> section = bloc.medidas;
                           section = double.parse(value) as List<MedidaModel>;
                           bloc.changeMedidas(section);
                         },
@@ -49,7 +49,7 @@ Widget cinputBySection(
                       child: TextField(
                         controller: anchoController,
                         onChanged: (String value) {
-                          var section = bloc.medidas;
+                          List<MedidaModel> section = bloc.medidas;
                           section = double.parse(value) as List<MedidaModel>;
                           bloc.changeMedidas(section);
                         },

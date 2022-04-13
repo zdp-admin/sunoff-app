@@ -139,14 +139,20 @@ class SeccionModelo {
     this.bloc.changePeliculas(currentFilms);
   }
 
-  void getImage(final _picker) async {
-    var pickedFile;
-    pickedFile = await _picker.getImage(
+  void getImage(ImagePicker _pickImage) async {
+    PickedFile? pickedFile = await _pickImage.getImage(
         source: ImageSource.camera, preferredCameraDevice: CameraDevice.rear);
 
     if (pickedFile != null) {
       this.bloc.changeImagen(new File(pickedFile.path));
-      this.imagen = this.bloc.imagen;
+    }
+  }
+
+  void getImageGallery(ImagePicker _pickImage) async {
+    PickedFile? pickedFile = await _pickImage.getImage(
+        source: ImageSource.gallery, maxHeight: 1800, maxWidth: 1800);
+    if (pickedFile != null) {
+      this.bloc.changeImagen(new File(pickedFile.path));
     }
   }
 }

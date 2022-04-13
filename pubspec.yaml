@@ -45,7 +45,7 @@ dependencies:
   cached_network_image: ^3.2.0
   screenshot: ^1.2.3
   share_files_and_screenshot_widgets: ^1.0.6
-  share_plus: 
+  uuid: ^3.0.6
 
 dev_dependencies:
   flutter_test:

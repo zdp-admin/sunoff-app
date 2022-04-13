@@ -59,7 +59,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   double widthImage(BuildContext context) {
-    var width = MediaQuery.of(context).size.width * .8;
+    double width = MediaQuery.of(context).size.width * .8;
     return width > 400 ? 400 : width;
   }
 

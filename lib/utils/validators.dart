@@ -50,7 +50,7 @@ class Validators {
     RegExp regExp = new RegExp(pattern as String);
 
     if (regExp.hasMatch(value.toString())) {
-      var valdouble = double.parse(value.toString());
+      double valdouble = double.parse(value.toString());
       if (valdouble > 0) {
         sink.add(value);
       } else {
@@ -67,7 +67,7 @@ class Validators {
     RegExp regExp = new RegExp(pattern as String);
 
     if (regExp.hasMatch(value.toString())) {
-      var valdouble = double.parse(value.toString());
+      double valdouble = double.parse(value.toString());
       if (valdouble >= 0) {
         sink.add(value);
       } else {
@@ -86,8 +86,8 @@ class Validators {
 
     if (regExp.hasMatch(value.medidas.toString()) &&
         regExp.hasMatch(value.medidas.toString())) {
-      var numAlto = double.parse(value.medidas.toString());
-      var numAncho = double.parse(value.medidas.toString());
+      double numAlto = double.parse(value.medidas.toString());
+      double numAncho = double.parse(value.medidas.toString());
       if (numAlto > 0 && numAncho > 0) {
         sink.add(value);
       } else {
@@ -125,7 +125,7 @@ class Validators {
     RegExp regExp = new RegExp(pattern as String);
 
     if (regExp.hasMatch(value.toString())) {
-      var valint = int.parse(value.toString());
+      int valint = int.parse(value.toString());
       if (valint > 0) {
         sink.add(value);
       } else {

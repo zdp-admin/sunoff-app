@@ -21,7 +21,7 @@ Widget cinputInstaller(SeccionModelo section) {
               contentPadding:
                   EdgeInsets.symmetric(vertical: 10, horizontal: 16)),
           onChanged: (String value) {
-            var install = section.bloc.instalador;
+            double install = section.bloc.instalador;
             install = double.parse(value);
             section.bloc.changeInstalador(install);
           });

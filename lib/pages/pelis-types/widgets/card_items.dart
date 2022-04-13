@@ -16,12 +16,12 @@ Widget cardItems(BuildContext context, String code, String label) {
   }
 
   return Container(
-      padding: EdgeInsets.only(left: 7),
+      // padding: EdgeInsets.only(left: 7),
       width: MediaQuery.of(context).size.width * .8,
       height: 75,
-      decoration: new BoxDecoration(
-          border: Border.all(width: 1.5, color: PColors.pLightBlue),
-          borderRadius: BorderRadius.circular(13.0)),
+      // decoration: new BoxDecoration(
+      //     border: Border.all(width: 1.5, color: PColors.pLightBlue),
+      //     borderRadius: BorderRadius.circular(13.0)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -33,6 +33,7 @@ Widget cardItems(BuildContext context, String code, String label) {
               color: PColors.pLightBlue,
             ),
           ),
+          VerticalDivider(),
           Expanded(
               child: Container(
             alignment: Alignment.center,

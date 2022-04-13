@@ -31,7 +31,6 @@ class PricingDetailsState extends State<PricingDetailsPage> {
   final oCcy = new NumberFormat("#,##0.00", "es_MX");
   final GlobalKey genKey = GlobalKey();
   ScreenshotController screenshotController = ScreenshotController();
-  late var peliImages;
 
   @override
   void initState() {
@@ -143,64 +142,73 @@ class PricingDetailsState extends State<PricingDetailsPage> {
                   padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                   child: Column(children: [
                     Container(
-                        child: Column(
+                        child: Stack(
                       children: [
                         Center(
                           child: Container(
-                              height: 80,
+                              height: 100,
                               child: Image.asset('assets/images/SunOff.png')),
                         ),
-                        Text('${widget.cotization.cliente.name}',
-                            style: TextStyle(
-                                fontSize: 26,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold)),
-                        Text('${widget.cotization.cliente.address}\n',
-                            overflow: TextOverflow.clip,
-                            textAlign: TextAlign.justify,
-                            style:
-                                TextStyle(fontSize: 22, color: Colors.black)),
                         Container(
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                              Text('Tipo: ',
+                          color: Colors.white70,
+                          child: Column(
+                            children: [
+                              Text('${widget.cotization.cliente.name}',
                                   style: TextStyle(
-                                      fontSize: 20, color: Colors.black)),
+                                      fontSize: 26,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold)),
+                              Text('${widget.cotization.cliente.address}\n',
+                                  overflow: TextOverflow.clip,
+                                  textAlign: TextAlign.justify,
+                                  style: TextStyle(
+                                      fontSize: 22, color: Colors.black)),
                               Container(
-                                  child: bType.name != ''
-                                      ? Text(bType.name,
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black))
-                                      : Text(
-                                          this.widget.buildTypeId == 1
-                                              ? 'Residencial'
-                                              : this.widget.buildTypeId == 2
-                                                  ? 'Comercial'
-                                                  : 'Intermediario',
-                                          style: TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.black),
-                                        )),
-                            ])),
-                        Container(
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                              Text('Secciones: ',
-                                  style: TextStyle(
-                                      fontSize: 20, color: Colors.black)),
-                              Text('${widget.cotization.secciones.length}',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black)),
-                            ])),
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                    Text('Tipo: ',
+                                        style: TextStyle(
+                                            fontSize: 20, color: Colors.black)),
+                                    Container(
+                                        child: bType.name != ''
+                                            ? Text(bType.name,
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black))
+                                            : Text(
+                                                this.widget.buildTypeId == 1
+                                                    ? 'Residencial'
+                                                    : this.widget.buildTypeId ==
+                                                            2
+                                                        ? 'Comercial'
+                                                        : 'Intermediario',
+                                                style: TextStyle(
+                                                    fontSize: 20,
+                                                    fontWeight: FontWeight.bold,
+                                                    color: Colors.black),
+                                              )),
+                                  ])),
+                              Container(
+                                  child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                    Text('Secciones: ',
+                                        style: TextStyle(
+                                            fontSize: 20, color: Colors.black)),
+                                    Text(
+                                        '${widget.cotization.secciones.length}',
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.black)),
+                                  ])),
+                            ],
+                          ),
+                        ),
                       ],
                     )),
                     Divider(
@@ -208,7 +216,7 @@ class PricingDetailsState extends State<PricingDetailsPage> {
                       color: Colors.black,
                     ),
                     Container(
-                      margin: EdgeInsets.symmetric(vertical: 20),
+                      margin: EdgeInsets.only(top: 20, bottom: 10),
                       child: Column(
                         children: widget.cotization.secciones
                             .map((section) => Container(
@@ -323,43 +331,33 @@ class PricingDetailsState extends State<PricingDetailsPage> {
                                     Container(
                                         child: size.width < 700
                                             ? section.pathImage != ''
-                                                ? Column(
-                                                    children: [
-                                                      Container(
-                                                          margin:
-                                                              EdgeInsets.only(
-                                                                  top: 5),
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        10),
-                                                          ),
-                                                          height: 200,
-                                                          width: MediaQuery.of(
-                                                                      context)
-                                                                  .size
-                                                                  .width *
-                                                              0.9,
-                                                          child: ClipRRect(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        10),
-                                                            child: FadeInImage(
-                                                              image:
-                                                                  NetworkImage(
-                                                                'http://${this.apiUrl}/public/${section.pathImage}',
-                                                              ),
-                                                              placeholder:
-                                                                  AssetImage(
-                                                                      'assets/images/Pulse.gif'),
-                                                              fit: BoxFit.cover,
-                                                            ),
-                                                          )),
-                                                    ],
-                                                  )
+                                                ? Container(
+                                                    margin:
+                                                        EdgeInsets.only(top: 5),
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                    ),
+                                                    height: 200,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width *
+                                                            0.9,
+                                                    child: ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10),
+                                                      child: FadeInImage(
+                                                        image: NetworkImage(
+                                                          'http://${this.apiUrl}/public/${section.pathImage}',
+                                                        ),
+                                                        placeholder: AssetImage(
+                                                            'assets/images/Pulse.gif'),
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ))
                                                 : Center()
                                             : Center()),
                                     Container(
@@ -375,7 +373,7 @@ class PricingDetailsState extends State<PricingDetailsPage> {
                       ),
                     ),
                     cot.comentario == ''
-                        ? SizedBox()
+                        ? Text('efdwefwef')
                         : Center(child: Text(cot.comentario)),
                     Center(
                       child: Text(

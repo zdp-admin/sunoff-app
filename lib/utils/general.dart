@@ -46,27 +46,28 @@ class General {
     }
   }
 
-  double calculateDistance(double currentLat, double currentLong, double lat,
-      double long, String type) {
-    var radioLatCurrent = pi * currentLat / 180;
-    var radioLat = pi * lat / 180;
-    var longResult = currentLong - long;
-    var radioLongResult = pi * longResult / 180;
-    var distance = sin(radioLatCurrent) * sin(radioLat) +
-        cos(radioLatCurrent) * cos(radioLat) * cos(radioLongResult);
+  //--------------------------------?????????????????---------------------------
+  // double calculateDistance(double currentLat, double currentLong, double lat,
+  //     double long, String type) {
+  //   var radioLatCurrent = pi * currentLat / 180;
+  //   var radioLat = pi * lat / 180;
+  //   var longResult = currentLong - long;
+  //   var radioLongResult = pi * longResult / 180;
+  //   var distance = sin(radioLatCurrent) * sin(radioLat) +
+  //       cos(radioLatCurrent) * cos(radioLat) * cos(radioLongResult);
 
-    distance = (acos(distance) * 180 / pi) * 60 * 1.1515;
+  //   distance = (acos(distance) * 180 / pi) * 60 * 1.1515;
 
-    if (type == "K") {
-      distance *= 1609.344;
-    }
+  //   if (type == "K") {
+  //     distance *= 1609.344;
+  //   }
 
-    if (type == "N") {
-      distance *= 0.8684;
-    }
+  //   if (type == "N") {
+  //     distance *= 0.8684;
+  //   }
 
-    return distance > 2000 ? distance / 1000 : distance;
-  }
+  //   return distance > 2000 ? distance / 1000 : distance;
+  // }
 
   void showAlert(BuildContext context, String title, String message) async {
     await showDialog(
