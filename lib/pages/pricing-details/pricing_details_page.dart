@@ -318,7 +318,8 @@ class PricingDetailsState extends State<PricingDetailsPage> {
                                                                   .pLightBlue)),
                                                       Column(children: [
                                                         Text(
-                                                            '\$ ${oCcy.format((section.medidas.map((e) => double.parse((e.alto * e.ancho).toStringAsFixed(2))).toList().fold(0, (prev, element) => double.parse(prev.toString()) + element) + (section.instalador)) * film.priceForSection)}',
+                                                            '\$ ${oCcy.format(film.priceForSection * double.parse((section.medidas.map((e) => (e.alto * e.ancho)).toList().fold(0, (prev, element) => double.parse(prev.toString()) + element) + (section.instalador)).toStringAsFixed(2)))}',
+                                                            // '\$ ${oCcy.format((section.medidas.map((e) => double.parse((e.alto * e.ancho).toStringAsFixed(2))).toList().fold(0, (prev, element) => double.parse(prev.toString()) + element) + (section.instalador)) * film.priceForSection)}',
                                                             style: TextStyle(
                                                                 fontSize: 16,
                                                                 color: PColors
