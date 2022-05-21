@@ -8,7 +8,8 @@ Widget cinputInstaller(SeccionModelo section) {
     builder: (BuildContext context, AsyncSnapshot snp) {
       return TextField(
           controller: section.instaladorController,
-          keyboardType: TextInputType.number,
+          keyboardType:
+              TextInputType.numberWithOptions(decimal: true, signed: false),
           decoration: InputDecoration(
               labelText: 'Instalador',
               enabledBorder: OutlineInputBorder(

@@ -38,7 +38,8 @@ Widget cinputPorSeccion(SeccionModelo seccion) {
                               list[medida.key].ancho = double.parse(value);
                               seccion.bloc.changeMedidas(list);
                             },
-                            keyboardType: TextInputType.number,
+                            keyboardType: TextInputType.numberWithOptions(
+                                decimal: true, signed: false),
                             controller: medida.value.anchoController,
                             decoration: InputDecoration(
                                 labelText: 'Ancho en mts',
@@ -56,7 +57,8 @@ Widget cinputPorSeccion(SeccionModelo seccion) {
                               list[medida.key].alto = double.parse(value);
                               seccion.bloc.changeMedidas(list);
                             },
-                            keyboardType: TextInputType.number,
+                            keyboardType: TextInputType.numberWithOptions(
+                                decimal: true, signed: false),
                             controller: medida.value.altoController,
                             decoration: InputDecoration(
                                 labelText: 'Alto en mts',

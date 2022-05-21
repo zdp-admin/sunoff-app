@@ -21,7 +21,8 @@ Widget rowPrice(ComentaryBloc bloc, List<Pelis> film) {
                         Container(
                             width: 100,
                             child: TextField(
-                              keyboardType: TextInputType.number,
+                              keyboardType: TextInputType.numberWithOptions(
+                                  decimal: true, signed: false),
                               decoration: InputDecoration(
                                   labelText: 'Precio',
                                   prefix: Text('\$ '),

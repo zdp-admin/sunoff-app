@@ -38,7 +38,8 @@ Widget cinputBySection(
                             isDense: true,
                             errorText:
                                 snp.hasError ? snp.error.toString() : null),
-                        keyboardType: TextInputType.number,
+                        keyboardType: TextInputType.numberWithOptions(
+                            decimal: true, signed: false),
                       ),
                     ),
                     SizedBox(
@@ -61,7 +62,8 @@ Widget cinputBySection(
                             border: OutlineInputBorder(),
                             errorText:
                                 snp.hasError ? snp.error.toString() : null),
-                        keyboardType: TextInputType.number,
+                        keyboardType: TextInputType.numberWithOptions(
+                            decimal: true, signed: false),
                       ),
                     ),
                   ],
