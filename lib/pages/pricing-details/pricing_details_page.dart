@@ -58,7 +58,7 @@ class PricingDetailsState extends State<PricingDetailsPage> {
   }
 
   Future<dynamic> showCaptureWidget(BuildContext context,
-      Uint8List captureImage, CotizacionModel cotizacion, double? pixelRatio) {
+      Uint8List captureImage, CotizacionModel cotizacion, double pixelRatio) {
     return showDialog(
       useSafeArea: false,
       context: context,
@@ -76,7 +76,7 @@ class PricingDetailsState extends State<PricingDetailsPage> {
                     onPressed: () {
                       ShareFilesAndScreenshotWidgets().shareScreenshot(
                           genKey,
-                          pixelRatio!,
+                          pixelRatio.toInt(),
                           'Ticket',
                           '${cotizacion.cliente.name}_${cotizacion.id}.png',
                           'image/png');

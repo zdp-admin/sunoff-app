@@ -34,7 +34,10 @@ class SunOff extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'SunOff',
           theme: appService<AppSettings>().appTheme,
-          localizationsDelegates: [GlobalMaterialLocalizations.delegate],
+          localizationsDelegates: [
+            GlobalMaterialLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate
+          ],
           supportedLocales: [const Locale('es')],
           navigatorKey: appService<NavigationService>().navigationKey,
           onGenerateRoute: generateRoute,
