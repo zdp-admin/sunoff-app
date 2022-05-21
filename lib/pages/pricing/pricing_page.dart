@@ -159,17 +159,9 @@ class PricingState extends State<PricingPage> {
                                               leading: CircleAvatar(
                                                   backgroundColor:
                                                       PColors.pLightBlue,
-                                                  radius: 20,
+                                                  radius: 22,
                                                   child: Text(cotization
-                                                              .userId ==
-                                                          4
-                                                      ? 'Glady'.substring(0, 2)
-                                                      : cotization.userId == 5
-                                                          ? 'Paula'
-                                                              .substring(0, 3)
-                                                          : 'Francisco'
-                                                              .substring(
-                                                                  0, 2))),
+                                                      .asesor.shortname)),
                                               title: Text(
                                                 cotization.cliente.name,
                                                 style: TextStyle(

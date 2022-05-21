@@ -149,7 +149,8 @@ class RestService {
   }
 
   Future<CotizacionModel> getPricingById(int id) async {
-    Uri url = new Uri.https(this.apiUrl!, '/public/pricing', {'id': id});
+    Uri url =
+        new Uri.https(this.apiUrl!, '/public/pricing', {'id': id.toString()});
 
     final response = await http.get(url, headers: this.header());
 
@@ -187,6 +188,22 @@ class RestService {
       Iterable iterable = responseParse ?? [];
 
       return iterable.map((item) => User.fromJson(item)).toList();
+    }
+
+    throw ('Error al consultar la información');
+  }
+
+  Future<User> getUserById(int userId) async {
+    Uri url = Uri.https(this.apiUrl!, '/public/user/$userId');
+    print(url);
+
+    final response = await http.get(url, headers: this.header());
+
+    if (response.statusCode == 200) {
+      dynamic responseParse = jsonDecode(response.body);
+      User user = User.fromJson(responseParse);
+
+      return user;
     }
 
     throw ('Error al consultar la información');

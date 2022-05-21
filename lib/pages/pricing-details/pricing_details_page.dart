@@ -5,7 +5,9 @@ import 'package:flutter/rendering.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_files_and_screenshot_widgets/share_files_and_screenshot_widgets.dart';
 import 'package:sunoff/models/cotizacion/type_building.dart';
+import 'package:sunoff/models/user.dart';
 import 'package:sunoff/services/navigation_service.dart';
+import 'package:sunoff/services/rest_service.dart';
 import 'package:sunoff/utils/app_settings.dart';
 import 'package:sunoff/colors/light_colors.dart';
 import 'package:sunoff/utils/preference_user.dart';
@@ -31,10 +33,28 @@ class PricingDetailsState extends State<PricingDetailsPage> {
   final oCcy = new NumberFormat("#,##0.00", "es_MX");
   final GlobalKey genKey = GlobalKey();
   ScreenshotController screenshotController = ScreenshotController();
+  User contact = new User();
 
   @override
   void initState() {
     super.initState();
+    this.getContact();
+  }
+
+  void getContact() {
+    RestService().getUserById(this.widget.cotization.userId).then((value) {
+      {
+        setState(() {
+          this.contact = value;
+        });
+      }
+    }).catchError((onError) {
+      ScaffoldMessenger.of(context).showSnackBar(new SnackBar(
+        duration: Duration(seconds: 3),
+        content: Text(
+            onError is String ? onError : 'Error al consultar el contacto'),
+      ));
+    });
   }
 
   Future<dynamic> showCaptureWidget(BuildContext context,
@@ -229,11 +249,11 @@ class PricingDetailsState extends State<PricingDetailsPage> {
                                             children: [
                                           Text('Sección: ',
                                               style: TextStyle(
-                                                  fontSize: 24,
+                                                  fontSize: 20,
                                                   color: PColors.pLightBlue)),
                                           Text('${section.nombre}',
                                               style: TextStyle(
-                                                  fontSize: 22,
+                                                  fontSize: 20,
                                                   fontWeight: FontWeight.bold,
                                                   color: PColors.pLightBlue))
                                         ])),
@@ -265,7 +285,7 @@ class PricingDetailsState extends State<PricingDetailsPage> {
                                             children: [
                                           Text(' - Medida: ',
                                               style: TextStyle(
-                                                  fontSize: 18,
+                                                  fontSize: 16,
                                                   color: PColors.pLightBlue)),
                                           Expanded(
                                             child: Padding(
@@ -374,30 +394,36 @@ class PricingDetailsState extends State<PricingDetailsPage> {
                       ),
                     ),
                     cot.comentario == ''
-                        ? Text('efdwefwef')
+                        ? Text('')
                         : Center(child: Text(cot.comentario)),
                     Center(
                       child: Text(
-                        (cot.userId) == 4
-                            ? '''\nCotización realizada el $fechaCot
-Le atendió Gladimar Castellanos.
-Cel. 3311670664
-ventas@sunoff.com.mx
-Oficina 3331274426
-www.sunoff.com.mx'''
-                            : cot.userId == 5
-                                ? '''\nCotización realizada el $fechaCot
-Le atendió Paula Vázquez.
-Cel. 3125504121
-comercializacion@sunoff.com.mx
-Oficina 3331274426
-www.sunoff.com.mx'''
-                                : '''\nCotización realizada el $fechaCot
-Le atendió Francisco Molina.
-Cel. 3331274426
-direccion@sunoff.com.mx
+                        '''\nCotización realizada el $fechaCot
+Le atendió ${contact.name} ${contact.surname}.
+Cel. ${contact.phone}
+${contact.contactEmail}
 Oficina 3331274426
 www.sunoff.com.mx''',
+//                         (cot.userId) == 4
+//                             ? '''\nCotización realizada el $fechaCot
+// Le atendió Gladimar Castellanos.
+// Cel. 3311670664
+// ventas@sunoff.com.mx
+// Oficina 3331274426
+// www.sunoff.com.mx'''
+//                             : cot.userId == 5
+//                                 ? '''\nCotización realizada el $fechaCot
+// Le atendió Paula Vázquez.
+// Cel. 3125504121
+// comercializacion@sunoff.com.mx
+// Oficina 3331274426
+// www.sunoff.com.mx'''
+//                                 : '''\nCotización realizada el $fechaCot
+// Le atendió Francisco Molina.
+// Cel. 3331274426
+// direccion@sunoff.com.mx
+// Oficina 3331274426
+// www.sunoff.com.mx''',
                         textAlign: TextAlign.center,
                       ),
                     ),

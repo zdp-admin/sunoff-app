@@ -2,6 +2,7 @@ import 'package:sunoff/models/cotizacion/cliente_modelo.dart';
 import 'package:sunoff/models/cotizacion/seccion_modelo.dart';
 import 'package:sunoff/models/cotizacion/pelis.dart';
 import 'package:sunoff/models/cotizacion/type_building.dart';
+import 'package:sunoff/models/user.dart';
 
 class CotizacionModel {
   late int id;
@@ -14,6 +15,7 @@ class CotizacionModel {
   late TypeBuilding typeBuilding;
   late int userId;
   List<Pelis> films = [];
+  User asesor = new User();
 
   CotizacionModel() {
     this.id = 0;
@@ -42,6 +44,7 @@ class CotizacionModel {
         TypeBuilding.fromJson(json['building_type'] ?? {});
     cotizacionModel.clientId = int.parse((json['clientId'] ?? 0).toString());
     cotizacionModel.userId = int.parse((json['user_id'] ?? 0).toString());
+    cotizacionModel.asesor = User.fromJson(json['user'] ?? {});
 
     return cotizacionModel;
   }
