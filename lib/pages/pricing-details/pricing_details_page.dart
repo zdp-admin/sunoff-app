@@ -76,7 +76,7 @@ class PricingDetailsState extends State<PricingDetailsPage> {
                     onPressed: () {
                       ShareFilesAndScreenshotWidgets().shareScreenshot(
                           genKey,
-                          pixelRatio,
+                          int.parse(pixelRatio.toString()),
                           'Ticket',
                           '${cotizacion.cliente.name}_${cotizacion.id}.png',
                           'image/png');

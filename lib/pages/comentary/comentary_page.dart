@@ -72,7 +72,9 @@ class ComentaryState extends State<ComentaryPage> {
         backgroundColor: appService<AppSettings>().appTheme!.backgroundColor,
         appBar: appBarCustom(context),
         drawer: drawerCustom(context),
-        body: SingleChildScrollView(
+        body: GestureDetector(
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: SingleChildScrollView(
           child: Container(
             height: MediaQuery.of(context).size.height,
             child: Column(
@@ -111,6 +113,8 @@ class ComentaryState extends State<ComentaryPage> {
               ],
             ),
           ),
-        ));
+        ),
+        )
+    );
   }
 }

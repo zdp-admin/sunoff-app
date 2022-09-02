@@ -168,7 +168,9 @@ class _CotizacionPageState extends State<CotizacionPage>
                 },
               )),
         ),
-        body: StreamBuilder(
+        body: GestureDetector(
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: StreamBuilder(
           stream: this.bloc.seccionesStream,
           builder: (BuildContext context, AsyncSnapshot snp) {
             List<SeccionModelo> secciones = snp.hasData ? snp.data : [];
@@ -307,6 +309,7 @@ class _CotizacionPageState extends State<CotizacionPage>
                       .toList(),
             );
           },
+        ),
         ),
         bottomNavigationBar: BottomNavigationBar(
             elevation: 0,

@@ -66,7 +66,9 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body: GestureDetector(
+        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+        child: Center(
           child: SingleChildScrollView(
         child: Column(
           children: [
@@ -106,6 +108,7 @@ class _LoginPageState extends State<LoginPage> {
           ],
         ),
       )),
+      ),
     );
   }
 }
